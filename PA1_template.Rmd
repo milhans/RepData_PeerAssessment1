@@ -30,6 +30,7 @@ The dataset is stored in a comma-separated-value (CSV) file and there are a tota
 ###Load the required data
 This uses read.csv to read the data. Here, we assume that activity.csv is in the current working dirctory.
 ```{r, echo=TRUE}
+library("knitr")
 repData <- read.csv("activity.csv", header=T, sep=",", colClasses=c("numeric", "character", "numeric"))
 
 #convert to Date
@@ -89,7 +90,7 @@ ggplot(stepsPerInt, aes(x=interval, y=steps)) + geom_line(color="blue", size=1) 
 ```
 Find 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps:
 
-```{r}
+```{r, echo=TRUE}
 stepsPerInt[which.max(stepsPerInt$steps),]
 ```
 
@@ -100,14 +101,14 @@ Note that there are a number of days/intervals where there are missing values (c
 
 Here, calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs):
 
-```{r}
+```{r, echo=TRUE}
 #Number of missing lines
 numMissing <- sum(is.na(repData$steps))
 ```
 
 Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated, using the mean for that 5-minute interval.
 
-```{r}
+```{r, echo=TRUE}
 #fillNA finds the NA values and replaces them with the interval mean
 fillNA <- function(data, perInterval){
         indexNA <- which(is.na(repData$steps))
@@ -129,7 +130,7 @@ sum(is.na(repDataFill$steps))
 Output shows no missing values.
 
 Create a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day:
-```{r}
+```{r, echo=TRUE}
 filledSteps <- aggregate(steps ~ date, repDataFill, sum)
 colnames(filledSteps) <- c("date", "steps")
 
@@ -160,7 +161,7 @@ Median: 10766.19
 
 Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
-```{r}
+```{r, echo=TRUE}
 #load dplyr library to manipulate data
 library(dplyr)
 
@@ -176,7 +177,7 @@ str(repDataFill)
 
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 
-```{r}
+```{r, echo=TRUE}
 repDataFill$interval <- as.numeric(repDataFill$interval)
 dayIntervalSteps <- group_by(repDataFill, interval, weekdays)
 summDaySteps <- summarise(dayIntervalSteps, averageSteps=mean(steps))
@@ -185,7 +186,7 @@ head(summDaySteps, n=10)
 
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 
-```{r}
+```{r, echo=TRUE}
 ggplot(data=summDaySteps, aes(x=interval, y=averageSteps)) +
         geom_line(color="blue") +
         facet_grid(weekdays ~ .) +
