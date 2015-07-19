@@ -84,7 +84,8 @@ img {
 <div id="load-the-required-data" class="section level3">
 <h3>Load the required data</h3>
 <p>This uses read.csv to read the data. Here, we assume that activity.csv is in the current working dirctory.</p>
-<pre class="r"><code>repData &lt;- read.csv(&quot;activity.csv&quot;, header=T, sep=&quot;,&quot;, colClasses=c(&quot;numeric&quot;, &quot;character&quot;, &quot;numeric&quot;))
+<pre class="r"><code>library(&quot;knitr&quot;)
+repData &lt;- read.csv(&quot;activity.csv&quot;, header=T, sep=&quot;,&quot;, colClasses=c(&quot;numeric&quot;, &quot;character&quot;, &quot;numeric&quot;))
 
 #convert to Date
 repData$date &lt;- as.Date(repData$date, format=&quot;%Y-%m-%d&quot;)</code></pre>
