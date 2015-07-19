@@ -3,6 +3,7 @@ title: "RR - Peer 1"
 author: "Jackie Milhans"
 date: "July 17, 2015"
 output: html_document
+keep_md: true
 ---
 
 ##Introduction
